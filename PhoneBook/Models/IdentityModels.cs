@@ -24,7 +24,7 @@ namespace PhoneBook.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+        public DbSet<Book.Person> People { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
