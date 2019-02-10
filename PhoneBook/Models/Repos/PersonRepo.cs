@@ -1,4 +1,5 @@
-﻿using PhoneBook.Models.Book;
+﻿using PhoneBook.Models.Abstraction;
+using PhoneBook.Models.Book;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace PhoneBook.Models.Repos
 {
-    public class PersonRepo
+    public class PersonRepo : IPersonRepo
     {
         private readonly ApplicationDbContext context;
         private readonly Logger.Abstraction.Logger errorLogger;
@@ -31,7 +32,7 @@ namespace PhoneBook.Models.Repos
         }
         public Person Get(int id)
         {
-            return context.People.SingleOrDefault(p=>p.Id == id);
+            return context.People.SingleOrDefault(p => p.Id == id);
         }
         public IQueryable<Person> GetPeople()
         {

@@ -12,6 +12,8 @@ namespace PhoneBook.App_Start
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
     using PhoneBook.Models;
+    using PhoneBook.Models.Abstraction;
+    using PhoneBook.Models.Repos;
 
     public static class NinjectWebCommon
     {
@@ -47,7 +49,8 @@ namespace PhoneBook.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();              
                 kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
-
+                kernel.Bind<IPersonRepo>().To<PersonRepo>();
+                kernel.Bind<Logger.Abstraction.Logger>().To<Logger.ErrorLogger>();
                 //RegisterServices(kernel);
                 return kernel;
             }
