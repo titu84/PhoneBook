@@ -1,11 +1,6 @@
 namespace PhoneBook.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-    using Logger;
-    using Models.Book;
     using PhoneBook.Models.Repos;
 
     internal sealed class Configuration : DbMigrationsConfiguration<PhoneBook.Models.ApplicationDbContext>
@@ -17,7 +12,7 @@ namespace PhoneBook.Migrations
 
         protected override void Seed(PhoneBook.Models.ApplicationDbContext context)
         {
-            var repo = new PersonRepo(context, new ErrorLogger()).GetSamplePeople();
+            var repo = new PersonRepo(context).GetSamplePeople();
             repo.ForEach(p => context.People.AddOrUpdate(p)); //TODO
         }
     }

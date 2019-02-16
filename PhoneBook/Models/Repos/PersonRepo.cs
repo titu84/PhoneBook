@@ -1,22 +1,18 @@
 ﻿using PhoneBook.Models.Abstraction;
 using PhoneBook.Models.Book;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 
 namespace PhoneBook.Models.Repos
 {
     public class PersonRepo : IPersonRepo
     {
-        private readonly ApplicationDbContext context;
-        private readonly Logger.Abstraction.Logger errorLogger;
+        private readonly IPeopleContext context;
 
-        public PersonRepo(ApplicationDbContext context, Logger.Abstraction.Logger errorLogger)
+        public PersonRepo(IPeopleContext context)
         {
-            this.context = context;
-            this.errorLogger = errorLogger;
+            this.context = context;           
         }
         public List<Person> GetSamplePeople()
         {
@@ -46,9 +42,8 @@ namespace PhoneBook.Models.Repos
                 context.SaveChanges();
                 return item.Id;
             }
-            catch (Exception ex)
+            catch 
             {
-                errorLogger.Log(ex.Message);
                 return -1;
             }
         }
@@ -61,13 +56,12 @@ namespace PhoneBook.Models.Repos
                 dbItem.LastName = item.LastName;
                 dbItem.EMail = item.EMail;
                 dbItem.Phone = item.Phone;
-                context.Entry(dbItem).State = System.Data.Entity.EntityState.Modified;
+                context.MarkAsModified(dbItem);
                 context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
-            {
-                errorLogger.Log(ex.Message);
+            catch
+            {                
                 return false;
             }
         }
@@ -76,17 +70,17 @@ namespace PhoneBook.Models.Repos
             try
             {
                 var dbItem = context.People.Find(id);
+                if (dbItem == null)                
+                    return false;                
                 context.People.Remove(dbItem);
-                context.Entry(dbItem).State = System.Data.Entity.EntityState.Deleted;
+                context.MarkAsDeleted(dbItem);
                 context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
-            {
-                errorLogger.Log(ex.Message);
+            catch 
+            {              
                 return false;
             }
         }
-
     }
 }

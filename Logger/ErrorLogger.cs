@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logger
-{  
+{
     public class ErrorLogger : Abstraction.Logger
     {
         public ErrorLogger() : base($"{nameof(ErrorLogger)}.txt") { }

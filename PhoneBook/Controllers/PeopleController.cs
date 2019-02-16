@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using PhoneBook.Models.Abstraction;
+using PhoneBook.Models.Book;
+using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PhoneBook.Models;
-using PhoneBook.Models.Abstraction;
-using PhoneBook.Models.Book;
 
 namespace PhoneBook.Controllers
 {
@@ -19,13 +14,13 @@ namespace PhoneBook.Controllers
         public PeopleController(IPersonRepo repo)
         {
             this.repo = repo;
-        }  
+        }
 
         public ActionResult Index()
-        {           
+        {
             return View(repo.GetPeople().ToList());
         }
-       
+
         public ActionResult Create()
         {
             return View();
@@ -37,12 +32,15 @@ namespace PhoneBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.Add(person);
-                return RedirectToAction("Index");
+                if (repo.Add(person) > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                throw new Exception("Db Exception");
             }
             return View(person);
         }
-       
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -57,9 +55,6 @@ namespace PhoneBook.Controllers
             return View(person);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,LastName,EMail,Phone")] Person person)
@@ -72,7 +67,6 @@ namespace PhoneBook.Controllers
             return View(person);
         }
 
-        // GET: People/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -86,13 +80,14 @@ namespace PhoneBook.Controllers
             }
             return View(person);
         }
-      
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            repo.Delete(id);
-            return RedirectToAction("Index");
+            if (repo.Delete(id))
+                return RedirectToAction("Index");
+            return HttpNotFound();
         }
     }
 }

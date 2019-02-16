@@ -49,6 +49,7 @@ namespace PhoneBook.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();              
                 kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+                kernel.Bind<IPeopleContext>().To<ApplicationDbContext>();
                 kernel.Bind<IPersonRepo>().To<PersonRepo>();
                 kernel.Bind<Logger.Abstraction.Logger>().To<Logger.ErrorLogger>();
                 //RegisterServices(kernel);

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PhoneBook.Models.Book;
 
 namespace PhoneBook.Models
 {
@@ -18,16 +19,32 @@ namespace PhoneBook.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IPeopleContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public DbSet<Book.Person> People { get; set; }
+        public DbSet<Person> People { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+        public void MarkAsModified(Person item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
+        public void MarkAsDeleted(Person item)
+        {
+            Entry(item).State = EntityState.Deleted;
+        }
+    }
+
+    public interface IPeopleContext
+    {
+        DbSet<Person> People { get; set; }
+        int SaveChanges();
+        void MarkAsModified(Person item);
+        void MarkAsDeleted(Person item);
     }
 }
