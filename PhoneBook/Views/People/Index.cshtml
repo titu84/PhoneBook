@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "", new { @id = "create"})
 </p>
 <table class="table">
     <tr>
@@ -39,8 +39,8 @@
             @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |     
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @id = $"Edit_{item.Id}" }) |     
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @id = $"Delete_{item.Id}" })
         </td>
     </tr>
 }

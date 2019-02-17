@@ -33,8 +33,7 @@ namespace PhoneBook.Tests.Controllers
             repoMock.Setup(s => s.GetPeople()).Returns(mockList.AsQueryable());
             repoMock.Setup(s => s.Add(It.IsAny<Person>())).Callback<Person>(s => mockList.Add(s)).Returns(mockList.Last().Id);
             repoMock.Setup(s => s.Add(null)).Returns(-1);
-            repoMock.Setup(s => s.Update(It.IsAny<Person>())).Returns(true);
-            //repoMock.Setup(s => s.Delete(2)).Callback(() => mockList.Remove(mockList.First(a => a.Id == 2)));
+            repoMock.Setup(s => s.Update(It.IsAny<Person>())).Returns(true);            
             repoMock.Setup(s => s.Delete(2)).Returns(true);            
             repoMock.Setup(s => s.Delete(-2)).Returns(false);
             repo = repoMock.Object;

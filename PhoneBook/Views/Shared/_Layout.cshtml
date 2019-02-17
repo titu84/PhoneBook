@@ -24,7 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("People", "Index", "People")</li>
+                        <li>@Html.ActionLink("People", "Index", "People", new { @id = "peopleLink"})</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

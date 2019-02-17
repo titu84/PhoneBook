@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Tests", "PhoneBoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{CF22B255-8436-495A-A77B-D920BFB5F44D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Selenium.Tests", "PhoneBook.Selenium.Tests\PhoneBook.Selenium.Tests.csproj", "{77275E3B-2E90-4A2D-8BB2-AC4D4DD245E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CF22B255-8436-495A-A77B-D920BFB5F44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF22B255-8436-495A-A77B-D920BFB5F44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF22B255-8436-495A-A77B-D920BFB5F44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77275E3B-2E90-4A2D-8BB2-AC4D4DD245E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77275E3B-2E90-4A2D-8BB2-AC4D4DD245E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77275E3B-2E90-4A2D-8BB2-AC4D4DD245E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77275E3B-2E90-4A2D-8BB2-AC4D4DD245E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
